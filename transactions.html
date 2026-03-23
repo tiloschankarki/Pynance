@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pynance — Transactions</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body data-page="transactions">
+
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+<div class="layout">
+
+  <!-- ===== SIDEBAR ===== -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-logo">
+      <div class="logo-icon">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+        </svg>
+      </div>
+      Pynance
+    </div>
+    <nav class="sidebar-nav">
+      <a href="index.html" class="nav-link" data-page="index.html">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+        Overview
+      </a>
+      <a href="transactions.html" class="nav-link active" data-page="transactions.html">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12V7H5a2 2 0 0 1 0-4h14v4"/><path d="M3 5v14a2 2 0 0 0 2 2h16v-5"/><path d="M18 12a2 2 0 0 0 0 4h4v-4Z"/></svg>
+        Transactions
+      </a>
+      <a href="customers.html" class="nav-link" data-page="customers.html">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        Customers
+      </a>
+      <a href="reports.html" class="nav-link" data-page="reports.html">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+        Reports
+      </a>
+      <a href="settings.html" class="nav-link" data-page="settings.html">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+        Settings
+      </a>
+      <a href="developer.html" class="nav-link" data-page="developer.html">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+        Developer
+      </a>
+    </nav>
+    <div class="sidebar-footer">
+      <a href="#" class="nav-link">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+        Log out
+      </a>
+    </div>
+  </aside>
+
+  <!-- ===== MAIN ===== -->
+  <div class="main-content">
+    <header class="header">
+      <div style="display:flex;align-items:center;gap:12px;">
+        <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+        <h1 class="header-title">Transactions</h1>
+      </div>
+      <div class="header-right">
+        <div class="search-box">
+          <svg class="search-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <input type="text" placeholder="Search transactions, customers, subscriptions" />
+        </div>
+        <div class="user-menu">
+          <button class="user-avatar-btn" id="avatarBtn">
+            <div class="user-avatar">A</div>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="user-dropdown" id="userDropdown">
+            <a href="settings.html">Profile</a>
+            <a href="settings.html">Account Settings</a>
+            <a href="#">Help</a>
+            <a href="#">Log out</a>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main class="page-body">
+      <div class="card">
+        <!-- Toolbar -->
+        <div class="toolbar">
+          <div class="toolbar-search">
+            <svg class="search-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <input type="text" id="txnSearch" placeholder="Search by name or email..." />
+          </div>
+          <select id="planFilter">
+            <option value="">All Plans</option>
+            <option value="basic">Basic</option>
+            <option value="pro">Pro</option>
+            <option value="advanced">Advanced</option>
+            <option value="enterprise">Enterprise</option>
+          </select>
+          <select id="statusFilter">
+            <option value="">All Status</option>
+            <option value="completed">Completed</option>
+            <option value="refunded">Refunded</option>
+            <option value="pending">Pending</option>
+          </select>
+          <div class="toolbar-spacer"></div>
+          <button class="btn btn-outline btn-sm" onclick="showToast('Export feature coming soon')">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Export CSV
+          </button>
+        </div>
+
+        <!-- Table -->
+        <div class="table-wrapper">
+          <table class="data-table" id="txnTable">
+            <thead>
+              <tr>
+                <th>Customer</th>
+                <th>Email</th>
+                <th>Plan</th>
+                <th>Amount</th>
+                <th>Date</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody id="txnBody">
+              <!-- JS will render rows -->
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Pagination -->
+        <div class="pagination" id="txnPagination">
+          <span id="txnPageInfo"></span>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+
+<div class="toast-container" id="toastContainer"></div>
+
+<script src="js/main.js"></script>
+<script>
+  const TXN_DATA = [
+    { name: 'S. Evergreen',  email: 'sarah.evergreen@email.com',   plan: 'pro',        amount: +49,   date: '2026-03-07', status: 'completed' },
+    { name: 'B. Sterling',   email: 'blake.sterling@email.com',    plan: 'advanced',   amount: +90,   date: '2026-03-07', status: 'completed' },
+    { name: 'O. Meadows',    email: 'oliver.meadows@email.com',    plan: 'basic',      amount: +19,   date: '2026-03-06', status: 'completed' },
+    { name: 'H. Hawthorne',  email: 'helen.hawthorne@email.com',   plan: 'basic',      amount: -19,   date: '2026-03-06', status: 'refunded'  },
+    { name: 'I. Whitman',    email: 'ivan.whitman@email.com',      plan: 'enterprise', amount: -289,  date: '2026-03-05', status: 'refunded'  },
+    { name: 'E. Frost',      email: 'eleanor.frost@email.com',     plan: 'basic',      amount: +19,   date: '2026-03-05', status: 'completed' },
+    { name: 'M. Sinclair',   email: 'marcus.sinclair@email.com',   plan: 'pro',        amount: +49,   date: '2026-03-04', status: 'completed' },
+    { name: 'L. Ashford',    email: 'luna.ashford@email.com',      plan: 'enterprise', amount: +289,  date: '2026-03-04', status: 'completed' },
+    { name: 'R. Cromwell',   email: 'rose.cromwell@email.com',     plan: 'advanced',   amount: +90,   date: '2026-03-03', status: 'pending'   },
+    { name: 'T. Harrington', email: 'thomas.harrington@email.com', plan: 'basic',      amount: +19,   date: '2026-03-03', status: 'completed' },
+    { name: 'N. Blackwood',  email: 'nora.blackwood@email.com',    plan: 'pro',        amount: +49,   date: '2026-03-02', status: 'completed' },
+    { name: 'C. Thornton',   email: 'clara.thornton@email.com',    plan: 'advanced',   amount: +90,   date: '2026-03-02', status: 'completed' },
+    { name: 'F. Whitmore',   email: 'felix.whitmore@email.com',    plan: 'basic',      amount: -19,   date: '2026-03-01', status: 'refunded'  },
+    { name: 'A. Pemberton',  email: 'alice.pemberton@email.com',   plan: 'enterprise', amount: +289,  date: '2026-03-01', status: 'completed' },
+    { name: 'G. Langford',   email: 'grace.langford@email.com',    plan: 'pro',        amount: +49,   date: '2026-02-28', status: 'pending'   },
+    { name: 'P. Fairbanks',  email: 'peter.fairbanks@email.com',   plan: 'basic',      amount: +19,   date: '2026-02-28', status: 'completed' },
+    { name: 'V. Drummond',   email: 'violet.drummond@email.com',   plan: 'advanced',   amount: +90,   date: '2026-02-27', status: 'completed' },
+    { name: 'J. Caldwell',   email: 'james.caldwell@email.com',    plan: 'pro',        amount: +49,   date: '2026-02-27', status: 'completed' },
+    { name: 'K. Wentworth',  email: 'kate.wentworth@email.com',    plan: 'enterprise', amount: -289,  date: '2026-02-26', status: 'refunded'  },
+    { name: 'D. Holloway',   email: 'd.holloway@email.com',        plan: 'basic',      amount: +19,   date: '2026-02-26', status: 'completed' },
+  ];
+
+  const PLAN_BADGE = {
+    basic: 'badge-basic', pro: 'badge-pro', advanced: 'badge-advanced', enterprise: 'badge-enterprise'
+  };
+  const STATUS_BADGE = {
+    completed: 'badge-active', refunded: 'badge-inactive', pending: 'badge-pending'
+  };
+
+  const PAGE_SIZE = 8;
+  let currentPage = 1;
+  let filtered = [...TXN_DATA];
+
+  function renderTable() {
+    const tbody = document.getElementById('txnBody');
+    const start = (currentPage - 1) * PAGE_SIZE;
+    const rows = filtered.slice(start, start + PAGE_SIZE);
+
+    tbody.innerHTML = rows.map(t => `
+      <tr>
+        <td><div style="display:flex;align-items:center;gap:10px;">
+          <div class="avatar" style="background:${avatarColor(t.name)}">${t.name[0]}</div>
+          <span style="font-weight:500;">${t.name}</span>
+        </div></td>
+        <td style="color:var(--color-text-muted);">${t.email}</td>
+        <td><span class="badge ${PLAN_BADGE[t.plan]}">${t.plan.toUpperCase()}</span></td>
+        <td style="font-weight:600;color:${t.amount>0?'var(--color-success)':'var(--color-danger)'};">${t.amount>0?'+':''}\$${Math.abs(t.amount)}</td>
+        <td style="color:var(--color-text-muted);">${t.date}</td>
+        <td><span class="badge ${STATUS_BADGE[t.status]}">${t.status.toUpperCase()}</span></td>
+      </tr>
+    `).join('');
+
+    renderPagination();
+  }
+
+  function renderPagination() {
+    const totalPages = Math.ceil(filtered.length / PAGE_SIZE);
+    const info = document.getElementById('txnPageInfo');
+    const container = document.getElementById('txnPagination');
+
+    // Remove old page buttons
+    container.querySelectorAll('.page-btn').forEach(b => b.remove());
+
+    info.textContent = `Showing ${Math.min((currentPage-1)*PAGE_SIZE+1, filtered.length)}–${Math.min(currentPage*PAGE_SIZE, filtered.length)} of ${filtered.length}`;
+
+    const prev = document.createElement('button');
+    prev.className = 'page-btn';
+    prev.textContent = '←';
+    prev.disabled = currentPage === 1;
+    prev.onclick = () => { currentPage--; renderTable(); };
+    container.appendChild(prev);
+
+    for (let i = 1; i <= totalPages; i++) {
+      const btn = document.createElement('button');
+      btn.className = 'page-btn' + (i === currentPage ? ' active' : '');
+      btn.textContent = i;
+      btn.onclick = () => { currentPage = i; renderTable(); };
+      container.appendChild(btn);
+    }
+
+    const next = document.createElement('button');
+    next.className = 'page-btn';
+    next.textContent = '→';
+    next.disabled = currentPage === totalPages;
+    next.onclick = () => { currentPage++; renderTable(); };
+    container.appendChild(next);
+  }
+
+  function applyFilters() {
+    const search = document.getElementById('txnSearch').value.toLowerCase();
+    const plan = document.getElementById('planFilter').value;
+    const status = document.getElementById('statusFilter').value;
+
+    filtered = TXN_DATA.filter(t => {
+      const matchSearch = !search || t.name.toLowerCase().includes(search) || t.email.toLowerCase().includes(search);
+      const matchPlan = !plan || t.plan === plan;
+      const matchStatus = !status || t.status === status;
+      return matchSearch && matchPlan && matchStatus;
+    });
+    currentPage = 1;
+    renderTable();
+  }
+
+  function avatarColor(name) {
+    const colors = ['#e05c5c','#3dbcb8','#f0a05a','#4caf82','#9c27b0','#2196f3','#ff5722'];
+    return colors[name.charCodeAt(0) % colors.length];
+  }
+
+  document.getElementById('txnSearch').addEventListener('input', applyFilters);
+  document.getElementById('planFilter').addEventListener('change', applyFilters);
+  document.getElementById('statusFilter').addEventListener('change', applyFilters);
+
+  renderTable();
+</script>
+</body>
+</html>

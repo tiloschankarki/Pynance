@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pynance — Customers</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body data-page="customers">
+
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+<div class="layout">
+
+  <!-- ===== SIDEBAR ===== -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-logo">
+      <div class="logo-icon">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      </div>
+      Pynance
+    </div>
+    <nav class="sidebar-nav">
+      <a href="index.html" class="nav-link" data-page="index.html">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+        Overview
+      </a>
+      <a href="transactions.html" class="nav-link" data-page="transactions.html">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12V7H5a2 2 0 0 1 0-4h14v4"/><path d="M3 5v14a2 2 0 0 0 2 2h16v-5"/><path d="M18 12a2 2 0 0 0 0 4h4v-4Z"/></svg>
+        Transactions
+      </a>
+      <a href="customers.html" class="nav-link active" data-page="customers.html">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        Customers
+      </a>
+      <a href="reports.html" class="nav-link" data-page="reports.html">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+        Reports
+      </a>
+      <a href="settings.html" class="nav-link" data-page="settings.html">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+        Settings
+      </a>
+      <a href="developer.html" class="nav-link" data-page="developer.html">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+        Developer
+      </a>
+    </nav>
+    <div class="sidebar-footer">
+      <a href="#" class="nav-link">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+        Log out
+      </a>
+    </div>
+  </aside>
+
+  <!-- ===== MAIN ===== -->
+  <div class="main-content">
+    <header class="header">
+      <div style="display:flex;align-items:center;gap:12px;">
+        <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+        <h1 class="header-title">Customers</h1>
+      </div>
+      <div class="header-right">
+        <div class="search-box">
+          <svg class="search-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <input type="text" placeholder="Search transactions, customers, subscriptions" />
+        </div>
+        <div class="user-menu">
+          <button class="user-avatar-btn" id="avatarBtn">
+            <div class="user-avatar">A</div>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="user-dropdown" id="userDropdown">
+            <a href="settings.html">Profile</a>
+            <a href="settings.html">Account Settings</a>
+            <a href="#">Help</a>
+            <a href="#">Log out</a>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main class="page-body">
+
+      <!-- Stats Row -->
+      <div class="stats-row">
+        <div class="stat-card">
+          <div class="stat-label">Total Customers</div>
+          <div class="stat-value">16,601</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Active</div>
+          <div class="stat-value" style="color:var(--color-success);">5,478</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Inactive</div>
+          <div class="stat-value" style="color:var(--color-danger);">11,123</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <!-- Toolbar -->
+        <div class="toolbar">
+          <div class="toolbar-search">
+            <svg class="search-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <input type="text" id="custSearch" placeholder="Search by name or email..." />
+          </div>
+          <select id="custPlanFilter">
+            <option value="">All Plans</option>
+            <option value="basic">Basic</option>
+            <option value="pro">Pro</option>
+            <option value="advanced">Advanced</option>
+            <option value="enterprise">Enterprise</option>
+          </select>
+          <select id="custStatusFilter">
+            <option value="">All Status</option>
+            <option value="active">Active</option>
+            <option value="inactive">Inactive</option>
+          </select>
+          <div class="toolbar-spacer"></div>
+          <button class="btn btn-primary btn-sm" onclick="showToast('Add customer feature coming soon')">
+            + Add Customer
+          </button>
+        </div>
+
+        <div class="table-wrapper">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Customer</th>
+                <th>Email</th>
+                <th>Plan</th>
+                <th>Join Date</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="custBody"></tbody>
+          </table>
+        </div>
+
+        <div class="pagination" id="custPagination">
+          <span id="custPageInfo"></span>
+        </div>
+      </div>
+
+    </main>
+  </div>
+</div>
+
+<div class="toast-container" id="toastContainer"></div>
+
+<script src="js/main.js"></script>
+<script>
+  const CUSTOMERS = [
+    { name: 'Sarah Evergreen',    email: 'sarah.evergreen@email.com',      plan: 'pro',        joined: '2024-01-15', status: 'active'   },
+    { name: 'Blake Sterling',     email: 'blake.sterling@email.com',       plan: 'advanced',   joined: '2024-02-03', status: 'active'   },
+    { name: 'Oliver Meadows',     email: 'oliver.meadows@email.com',       plan: 'basic',      joined: '2024-03-12', status: 'inactive' },
+    { name: 'Helen Hawthorne',    email: 'helen.hawthorne@email.com',      plan: 'basic',      joined: '2024-03-18', status: 'inactive' },
+    { name: 'Ivan Whitman',       email: 'ivan.whitman@email.com',         plan: 'enterprise', joined: '2023-11-05', status: 'active'   },
+    { name: 'Eleanor Frost',      email: 'eleanor.frost@email.com',        plan: 'basic',      joined: '2024-04-02', status: 'active'   },
+    { name: 'Marcus Sinclair',    email: 'marcus.sinclair@email.com',      plan: 'pro',        joined: '2024-01-28', status: 'active'   },
+    { name: 'Luna Ashford',       email: 'luna.ashford@email.com',         plan: 'enterprise', joined: '2023-09-17', status: 'active'   },
+    { name: 'Rose Cromwell',      email: 'rose.cromwell@email.com',        plan: 'advanced',   joined: '2024-05-10', status: 'inactive' },
+    { name: 'Thomas Harrington',  email: 'thomas.harrington@email.com',    plan: 'basic',      joined: '2024-06-01', status: 'active'   },
+    { name: 'Nora Blackwood',     email: 'nora.blackwood@email.com',       plan: 'pro',        joined: '2024-02-14', status: 'inactive' },
+    { name: 'Clara Thornton',     email: 'clara.thornton@email.com',       plan: 'advanced',   joined: '2024-04-22', status: 'active'   },
+    { name: 'Felix Whitmore',     email: 'felix.whitmore@email.com',       plan: 'basic',      joined: '2024-07-07', status: 'inactive' },
+    { name: 'Alice Pemberton',    email: 'alice.pemberton@email.com',      plan: 'enterprise', joined: '2023-08-30', status: 'active'   },
+    { name: 'Grace Langford',     email: 'grace.langford@email.com',       plan: 'pro',        joined: '2024-03-03', status: 'active'   },
+    { name: 'Peter Fairbanks',    email: 'peter.fairbanks@email.com',      plan: 'basic',      joined: '2024-06-18', status: 'inactive' },
+    { name: 'Violet Drummond',    email: 'violet.drummond@email.com',      plan: 'advanced',   joined: '2024-05-25', status: 'active'   },
+    { name: 'James Caldwell',     email: 'james.caldwell@email.com',       plan: 'pro',        joined: '2024-01-09', status: 'active'   },
+    { name: 'Kate Wentworth',     email: 'kate.wentworth@email.com',       plan: 'enterprise', joined: '2023-12-12', status: 'inactive' },
+    { name: 'Derek Holloway',     email: 'd.holloway@email.com',           plan: 'basic',      joined: '2024-07-01', status: 'active'   },
+  ];
+
+  const PLAN_BADGE = { basic:'badge-basic', pro:'badge-pro', advanced:'badge-advanced', enterprise:'badge-enterprise' };
+  const PAGE_SIZE = 8;
+  let currentPage = 1;
+  let filtered = [...CUSTOMERS];
+
+  function avatarColor(name) {
+    const colors = ['#e05c5c','#3dbcb8','#f0a05a','#4caf82','#9c27b0','#2196f3','#ff5722'];
+    return colors[name.charCodeAt(0) % colors.length];
+  }
+
+  function renderTable() {
+    const tbody = document.getElementById('custBody');
+    const start = (currentPage - 1) * PAGE_SIZE;
+    const rows = filtered.slice(start, start + PAGE_SIZE);
+
+    tbody.innerHTML = rows.map(c => `
+      <tr>
+        <td><div style="display:flex;align-items:center;gap:10px;">
+          <div class="avatar" style="background:${avatarColor(c.name)}">${c.name[0]}</div>
+          <span style="font-weight:500;">${c.name}</span>
+        </div></td>
+        <td style="color:var(--color-text-muted);">${c.email}</td>
+        <td><span class="badge ${PLAN_BADGE[c.plan]}">${c.plan.toUpperCase()}</span></td>
+        <td style="color:var(--color-text-muted);">${c.joined}</td>
+        <td><span class="badge ${c.status==='active'?'badge-active':'badge-inactive'}">${c.status.toUpperCase()}</span></td>
+        <td>
+          <button class="btn btn-outline btn-sm" onclick="showToast('Viewing ${c.name}')">View</button>
+        </td>
+      </tr>
+    `).join('');
+
+    renderPagination();
+  }
+
+  function renderPagination() {
+    const totalPages = Math.ceil(filtered.length / PAGE_SIZE);
+    const info = document.getElementById('custPageInfo');
+    const container = document.getElementById('custPagination');
+    container.querySelectorAll('.page-btn').forEach(b => b.remove());
+
+    info.textContent = `Showing ${Math.min((currentPage-1)*PAGE_SIZE+1, filtered.length)}–${Math.min(currentPage*PAGE_SIZE, filtered.length)} of ${filtered.length}`;
+
+    const prev = document.createElement('button');
+    prev.className = 'page-btn';
+    prev.textContent = '←';
+    prev.disabled = currentPage === 1;
+    prev.onclick = () => { currentPage--; renderTable(); };
+    container.appendChild(prev);
+
+    for (let i = 1; i <= totalPages; i++) {
+      const btn = document.createElement('button');
+      btn.className = 'page-btn' + (i === currentPage ? ' active' : '');
+      btn.textContent = i;
+      btn.onclick = () => { currentPage = i; renderTable(); };
+      container.appendChild(btn);
+    }
+
+    const next = document.createElement('button');
+    next.className = 'page-btn';
+    next.textContent = '→';
+    next.disabled = currentPage === totalPages;
+    next.onclick = () => { currentPage++; renderTable(); };
+    container.appendChild(next);
+  }
+
+  function applyFilters() {
+    const search = document.getElementById('custSearch').value.toLowerCase();
+    const plan = document.getElementById('custPlanFilter').value;
+    const status = document.getElementById('custStatusFilter').value;
+
+    filtered = CUSTOMERS.filter(c => {
+      const matchSearch = !search || c.name.toLowerCase().includes(search) || c.email.toLowerCase().includes(search);
+      const matchPlan = !plan || c.plan === plan;
+      const matchStatus = !status || c.status === status;
+      return matchSearch && matchPlan && matchStatus;
+    });
+    currentPage = 1;
+    renderTable();
+  }
+
+  document.getElementById('custSearch').addEventListener('input', applyFilters);
+  document.getElementById('custPlanFilter').addEventListener('change', applyFilters);
+  document.getElementById('custStatusFilter').addEventListener('change', applyFilters);
+
+  renderTable();
+</script>
+</body>
+</html>
