@@ -1,0 +1,251 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pynance — Transactions</title>
+  <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+</head>
+<body data-page="transactions">
+
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+<div class="layout">
+
+  <!-- ===== SIDEBAR ===== -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-logo">
+      <div class="logo-icon">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"/>
+          <line x1="12" y1="8" x2="12" y2="12"/>
+          <line x1="12" y1="16" x2="12.01" y2="16"/>
+        </svg>
+      </div>
+      Pynance
+    </div>
+
+    <nav class="sidebar-nav">
+      <a href="/" class="nav-link" data-page="">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="3" width="7" height="7"/>
+          <rect x="14" y="3" width="7" height="7"/>
+          <rect x="3" y="14" width="7" height="7"/>
+          <rect x="14" y="14" width="7" height="7"/>
+        </svg>
+        Overview
+      </a>
+
+      <a href="{% url 'transactions:page' %}" class="nav-link active" data-page="">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 12V7H5a2 2 0 0 1 0-4h14v4"/>
+          <path d="M3 5v14a2 2 0 0 0 2 2h16v-5"/>
+          <path d="M18 12a2 2 0 0 0 0 4h4v-4Z"/>
+        </svg>
+        Transactions
+      </a>
+
+      <a href="#" class="nav-link" data-page="">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="18" y1="20" x2="18" y2="10"/>
+          <line x1="12" y1="20" x2="12" y2="4"/>
+          <line x1="6" y1="20" x2="6" y2="14"/>
+        </svg>
+        Reports
+      </a>
+
+      <a href="#" class="nav-link" data-page="">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="3"/>
+          <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+        </svg>
+        Settings
+      </a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <a href="{% url 'accounts:logout' %}" class="nav-link">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+          <polyline points="16 17 21 12 16 7"/>
+          <line x1="21" y1="12" x2="9" y2="12"/>
+        </svg>
+        Log out
+      </a>
+    </div>
+  </aside>
+
+  <!-- ===== MAIN ===== -->
+  <div class="main-content">
+    <header class="header">
+      <div style="display:flex;align-items:center;gap:12px;">
+        <button class="hamburger" id="hamburger">
+          <span></span><span></span><span></span>
+        </button>
+        <h1 class="header-title">Transactions</h1>
+      </div>
+
+      <div class="header-right">
+        <div class="search-box">
+          <svg class="search-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"/>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+          </svg>
+          <input type="text" id="txnSearch" placeholder="Search transactions..." />
+        </div>
+
+        <div class="user-menu">
+          <button class="user-avatar-btn" id="avatarBtn">
+            <div class="user-avatar">{{ request.user.username|first|upper }}</div>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="6 9 12 15 18 9"/>
+            </svg>
+          </button>
+
+          <div class="user-dropdown" id="userDropdown">
+            <a href="#">Profile</a>
+            <a href="#">Account Settings</a>
+            <a href="{% url 'accounts:logout' %}">Log out</a>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main class="page-body">
+      <div class="card">
+
+        <!-- Toolbar -->
+        <div class="toolbar">
+          <div class="toolbar-search">
+            <svg class="search-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="11" cy="11" r="8"/>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+            </svg>
+            <input type="text" id="tableSearch" placeholder="Search description..." />
+          </div>
+
+          <select id="typeFilter">
+            <option value="">All Types</option>
+            <option value="income">Income</option>
+            <option value="expense">Expense</option>
+          </select>
+
+          <select id="categoryFilter">
+            <option value="">All Categories</option>
+            <option value="Income">Income</option>
+            <option value="Fixed Expense">Fixed Expense</option>
+            <option value="Variable Expense">Variable Expense</option>
+          </select>
+
+          <div class="toolbar-spacer"></div>
+
+          <a class="btn btn-outline btn-sm" href="{% url 'transactions:add' %}">
+            Add Transaction
+          </a>
+        </div>
+
+        <!-- Table -->
+        <div class="table-wrapper">
+          <table class="data-table" id="txnTable">
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Description</th>
+                <th>Type</th>
+                <th>Category</th>
+                <th>Amount</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="txnBody">
+              {% for transaction in transactions %}
+              <tr
+                data-type="{{ transaction.type|lower }}"
+                data-category="{{ transaction.get_category_display|lower }}"
+                data-search="{{ transaction.description|default:''|lower }} {{ transaction.get_type_display|lower }} {{ transaction.get_category_display|lower }}"
+              >
+                <td>{{ transaction.date }}</td>
+                <td>{{ transaction.description|default:"—" }}</td>
+                <td>{{ transaction.get_type_display }}</td>
+                <td>{{ transaction.get_category_display }}</td>
+                <td>
+                  {% if transaction.type == "income" %}
+                    +${{ transaction.amount }}
+                  {% else %}
+                    -${{ transaction.amount }}
+                  {% endif %}
+                </td>
+                <td>
+                  <a href="{% url 'transactions:edit' transaction.pk %}">Edit</a>
+                  |
+                  <a href="{% url 'transactions:delete' transaction.pk %}">Delete</a>
+                </td>
+              </tr>
+              {% empty %}
+              <tr>
+                <td colspan="6">No transactions yet.</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Pagination / Info -->
+        <div class="pagination" id="txnPagination">
+          <span id="txnPageInfo">
+            Showing {{ transactions|length }} transaction{{ transactions|length|pluralize }}
+          </span>
+        </div>
+
+      </div>
+    </main>
+  </div>
+</div>
+
+<div class="toast-container" id="toastContainer"></div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const searchInput = document.getElementById("tableSearch");
+    const typeFilter = document.getElementById("typeFilter");
+    const categoryFilter = document.getElementById("categoryFilter");
+    const rows = document.querySelectorAll("#txnBody tr[data-type]");
+    const pageInfo = document.getElementById("txnPageInfo");
+
+    function filterTransactions() {
+      const search = searchInput ? searchInput.value.toLowerCase() : "";
+      const type = typeFilter ? typeFilter.value.toLowerCase() : "";
+      const category = categoryFilter ? categoryFilter.value.toLowerCase() : "";
+
+      let visibleCount = 0;
+
+      rows.forEach(row => {
+        const rowType = row.dataset.type || "";
+        const rowCategory = row.dataset.category || "";
+        const rowSearch = row.dataset.search || "";
+
+        const matchesSearch = !search || rowSearch.includes(search);
+        const matchesType = !type || rowType === type;
+        const matchesCategory = !category || rowCategory === category;
+
+        const show = matchesSearch && matchesType && matchesCategory;
+        row.style.display = show ? "" : "none";
+
+        if (show) visibleCount++;
+      });
+
+      if (pageInfo) {
+        pageInfo.textContent = `Showing ${visibleCount} transaction${visibleCount === 1 ? "" : "s"}`;
+      }
+    }
+
+    if (searchInput) searchInput.addEventListener("input", filterTransactions);
+    if (typeFilter) typeFilter.addEventListener("change", filterTransactions);
+    if (categoryFilter) categoryFilter.addEventListener("change", filterTransactions);
+  });
+</script>
+
+<script src="{% static 'js/main.js' %}"></script>
+</body>
+</html>
