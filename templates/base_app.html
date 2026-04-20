@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+
+{% block body %}
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+<div class="layout">
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-logo">
+            <div class="logo-icon">P</div>
+            <span>Pynance</span>
+        </div>
+
+        <nav class="sidebar-nav">
+            <a href="{% url 'dashboard' %}" class="nav-link {% block nav_dashboard %}{% endblock %}">
+                <span>Dashboard</span>
+            </a>
+
+            <a href="{% url 'transactions:page' %}" class="nav-link {% block nav_transactions %}{% endblock %}">
+                <span>Transactions</span>
+            </a>
+
+            <a href="{% url 'goals:page' %}" class="nav-link {% block nav_goals %}{% endblock %}">
+                <span>Goals</span>
+            </a>
+
+            <a href="{% url 'accounts:settings' %}" class="nav-link {% block nav_settings %}{% endblock %}">
+                <span>Settings</span>
+            </a>
+        </nav>
+
+        <div class="sidebar-footer">
+            <form action="{% url 'accounts:logout' %}" method="post">
+                {% csrf_token %}
+                <button type="submit" class="nav-link" style="width: 100%; text-align: left;">
+                    <span>Logout</span>
+                </button>
+            </form>
+        </div>
+    </aside>
+
+    <div class="main-content">
+        <header class="header">
+            <div style="display: flex; align-items: center; gap: 12px;">
+                <button class="hamburger" id="hamburger" type="button" aria-label="Open menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+
+                <h1 class="header-title">{% block header %}Pynance{% endblock %}</h1>
+            </div>
+
+            <div class="header-right">
+                <div class="user-menu">
+                    <button class="user-avatar-btn" id="avatarBtn" type="button">
+                        <div class="user-avatar">
+                            {{ request.user.username|first|upper }}
+                        </div>
+                    </button>
+
+                    <div class="user-dropdown" id="userDropdown">
+                        <a href="{% url 'accounts:settings' %}">Settings</a>                        <form action="{% url 'accounts:logout' %}" method="post" style="margin: 0;">
+                            {% csrf_token %}
+                            <button type="submit" style="display: block; width: 100%; text-align: left; padding: 10px 16px; background: none; border: none; font: inherit; cursor: pointer;">
+                                Logout
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <main class="page-body">
+            {% block content %}{% endblock %}
+        </main>
+    </div>
+</div>
+
+<div class="toast-container" id="toastContainer"></div>
+{% endblock %}
