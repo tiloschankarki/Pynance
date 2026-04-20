@@ -1,0 +1,123 @@
+{% extends "base_app.html" %}
+
+{% block title %}Settings{% endblock %}
+{% block body_page %}settings{% endblock %}
+{% block header %}Settings{% endblock %}
+{% block nav_settings %}active{% endblock %}
+
+{% block content %}
+    <div class="card" style="max-width: 850px;">
+        <div class="card-header">
+            <span class="card-title">Account Settings</span>
+        </div>
+
+        <div class="card-body">
+            {% if messages %}
+                <div style="margin-bottom: 20px;">
+                    {% for message in messages %}
+                        <div style="padding: 10px 12px; margin-bottom: 10px; border-radius: 8px; background: #eef6ff;">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+            <div style="display: grid; gap: 24px;">
+                <div>
+                    <h3 style="margin-bottom: 12px;">Change Username</h3>
+                    <form method="post">
+                        {% csrf_token %}
+                        <input type="hidden" name="update_username" value="1">
+
+                        {% for field in user_form %}
+                            <div class="form-group">
+                                <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                                {{ field }}
+                                {% if field.errors %}
+                                    <div style="margin-top: 6px; color: var(--color-danger); font-size: 12px;">
+                                        {{ field.errors }}
+                                    </div>
+                                {% endif %}
+                            </div>
+                        {% endfor %}
+
+                        <button type="submit" class="btn btn-primary">Update Username</button>
+                    </form>
+                </div>
+
+                <hr style="border: none; border-top: 1px solid var(--color-border);">
+
+                <div>
+                    <h3 style="margin-bottom: 12px;">Change Password</h3>
+                    <form method="post">
+                        {% csrf_token %}
+                        <input type="hidden" name="update_password" value="1">
+
+                        {% for field in password_form %}
+                            <div class="form-group">
+                                <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                                {{ field }}
+                                {% if field.help_text %}
+                                    <div style="margin-top: 4px; font-size: 12px; color: var(--color-text-muted);">
+                                        {{ field.help_text|safe }}
+                                    </div>
+                                {% endif %}
+                                {% if field.errors %}
+                                    <div style="margin-top: 6px; color: var(--color-danger); font-size: 12px;">
+                                        {{ field.errors }}
+                                    </div>
+                                {% endif %}
+                            </div>
+                        {% endfor %}
+
+                        <button type="submit" class="btn btn-primary">Update Password</button>
+                    </form>
+                </div>
+
+                <hr style="border: none; border-top: 1px solid var(--color-border);">
+
+                <div>
+                    <h3 style="margin-bottom: 12px;">Appearance</h3>
+
+                    <div class="toggle-row">
+                        <div class="toggle-label">
+                            <h4>Dark Mode</h4>
+                            <p>Toggle between light and dark appearance.</p>
+                        </div>
+
+                        <label class="toggle">
+                            <input type="checkbox" id="themeToggle">
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const themeToggle = document.getElementById("themeToggle");
+        const savedTheme = localStorage.getItem("pynance-theme");
+
+        if (savedTheme === "dark") {
+            document.body.classList.add("dark-mode");
+            if (themeToggle) themeToggle.checked = true;
+        }
+
+        if (themeToggle) {
+            themeToggle.addEventListener("change", function () {
+                if (themeToggle.checked) {
+                    document.body.classList.add("dark-mode");
+                    localStorage.setItem("pynance-theme", "dark");
+                } else {
+                    document.body.classList.remove("dark-mode");
+                    localStorage.setItem("pynance-theme", "light");
+                }
+            });
+        }
+    });
+</script>
+{% endblock %}
