@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Goals</title>
+</head>
+<body>
+    <h1>Your Goals</h1>
+
+    <a href="{% url 'goals:add' %}">Add Goal</a>
+
+    <hr>
+
+    {% if goals %}
+        {% for goal in goals %}
+            <div style="border: 1px solid #ccc; padding: 16px; margin-bottom: 16px;">
+                <h2>{{ goal.title }}</h2>
+                <p><strong>Target:</strong> {{ goal.target_amount }}</p>
+                <p><strong>Saved:</strong> {{ goal.saved_amount }}</p>
+                <p><strong>Progress:</strong> {{ goal.progress_percentage|floatformat:1 }}%</p>
+                <p><strong>Note:</strong> {{ goal.note|default:"No note added." }}</p>
+
+                <div style="background: #eee; width: 100%; height: 20px; margin: 10px 0;">
+                    <div
+                    style="background: #4caf50; height: 20px;"
+                    data-width="{{ goal.progress_percentage }}">
+                </div>
+                </div>
+
+                <a href="{% url 'goals:edit' goal.pk %}">Edit</a>
+                <a href="{% url 'goals:delete' goal.pk %}">Delete</a>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>No goals added yet.</p>
+    {% endif %}
+</body>
+</html>
