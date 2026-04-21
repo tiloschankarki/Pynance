@@ -1,91 +1,76 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <title>Register</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
-<body class="bg-light">
+{% extends "base.html" %}
 
-<div class="container mt-5">
-    <div class="row justify-content-center">
-        <div class="col-md-5">
-            <h2 class="mb-4 text-center">Create Account</h2>
+{% block title %}Create account · Pynance{% endblock %}
+{% block body_page %}auth-register{% endblock %}
 
-            {% if form.non_field_errors %}
-                <div class="alert alert-danger">
-                    {% for error in form.non_field_errors %}
-                        <div>{{ error }}</div>
-                    {% endfor %}
-                </div>
-            {% endif %}
+{% block body %}
+<div class="auth-wrap">
+    <div class="auth-card">
+        <div class="auth-brand">
+            <div class="logo-icon">P</div>
+            <span>Pynance</span>
+        </div>
 
-            <form method="POST">
-                {% csrf_token %}
+        <h1 class="auth-title">Create your account</h1>
+        <p class="auth-subtitle">Track your money in minutes</p>
 
-                <div class="mb-3">
-                    <label class="form-label">Username</label>
-                    {{ form.username }}
-                    {% for error in form.username.errors %}
-                        <div class="text-danger small">{{ error }}</div>
-                    {% endfor %}
-                </div>
+        {% if form.non_field_errors %}
+            <div class="auth-alert">
+                {% for error in form.non_field_errors %}
+                    <div>{{ error }}</div>
+                {% endfor %}
+            </div>
+        {% endif %}
 
-                <div class="mb-3">
-                    <label class="form-label">Email</label>
-                    {{ form.email }}
-                    {% for error in form.email.errors %}
-                        <div class="text-danger small">{{ error }}</div>
-                    {% endfor %}
-                </div>
+        <form method="post">
+            {% csrf_token %}
 
-                <div class="mb-3">
-                    <label class="form-label">Password</label>
-                    {{ form.password1 }}
-                    {% for error in form.password1.errors %}
-                        <div class="text-danger small">{{ error }}</div>
-                    {% endfor %}
-                </div>
-                
-                <div class="mb-3">
-                    <label class="form-label">Confirm Password</label>
-                    {{ form.password2 }}
-                    {% for error in form.password2.errors %}
-                        <div class="text-danger small">{{ error }}</div>
-                    {% endfor %}
-                </div>
+            <div class="form-group">
+                <label for="id_username">Username</label>
+                {{ form.username }}
+                {% for error in form.username.errors %}<div class="field-error">{{ error }}</div>{% endfor %}
+            </div>
 
-                <div class="form-check mb-3">
-                    <input class="form-check-input" type="checkbox" id="showPassword" onclick="togglePasswords()">
-                    <label class="form-check-label" for="showPassword">
-                        Show passwords
-                    </label>
-                </div>
+            <div class="form-group">
+                <label for="id_email">Email</label>
+                {{ form.email }}
+                {% for error in form.email.errors %}<div class="field-error">{{ error }}</div>{% endfor %}
+            </div>
 
-                <button type="submit" class="btn btn-success w-100">Register</button>
-            </form>
+            <div class="form-group">
+                <label for="password1">Password</label>
+                {{ form.password1 }}
+                {% for error in form.password1.errors %}<div class="field-error">{{ error }}</div>{% endfor %}
+            </div>
 
-            <p class="mt-3 text-center">
-                Already have an account?
-                <a href="{% url 'accounts:login' %}">Login</a>
-            </p>
+            <div class="form-group">
+                <label for="password2">Confirm password</label>
+                {{ form.password2 }}
+                {% for error in form.password2.errors %}<div class="field-error">{{ error }}</div>{% endfor %}
+            </div>
+
+            <label class="show-pass">
+                <input type="checkbox" id="showPasswords"> Show passwords
+            </label>
+
+            <button type="submit" class="btn btn-primary">Create account</button>
+        </form>
+
+        <div class="auth-footer">
+            Already have an account? <a href="{% url 'accounts:login' %}">Log in</a>
         </div>
     </div>
 </div>
+{% endblock %}
 
-    <script>
-        function togglePasswords() {
-            const pass1 = document.getElementById("password1");
-            const pass2 = document.getElementById("password2");
-
-            if (pass1.type === "password") {
-                pass1.type = "text";
-                pass2.type = "text";
-            } else {
-                pass1.type = "password";
-                pass2.type = "password";
-            }
-        }
-    </script>
-
-</body>
-</html>
+{% block extra_js %}
+<script>
+    document.getElementById('showPasswords').addEventListener('change', (e) => {
+        const t = e.target.checked ? 'text' : 'password';
+        const p1 = document.getElementById('password1');
+        const p2 = document.getElementById('password2');
+        if (p1) p1.type = t;
+        if (p2) p2.type = t;
+    });
+</script>
+{% endblock %}

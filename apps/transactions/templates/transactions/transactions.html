@@ -60,13 +60,11 @@
                             <td>{{ transaction.get_type_display }}</td>
                             <td>{{ transaction.get_category_display }}</td>
                             <td>
-                                {% if transaction.type == "income" %}
-                                    +${{ transaction.amount }}
-                                {% else %}
-                                    -${{ transaction.amount }}
-                                {% endif %}
+                                <span class="txn-amount {% if transaction.type == 'income' %}positive{% else %}negative{% endif %}">
+                                    {% if transaction.type == "income" %}+{% else %}-{% endif %}${{ transaction.amount }}
+                                </span>
                             </td>
-                            <td>
+                            <td style="display:flex;gap:6px;">
                                 <a href="{% url 'transactions:edit' transaction.pk %}" class="btn btn-outline btn-sm">Edit</a>
                                 <a href="{% url 'transactions:delete' transaction.pk %}" class="btn btn-danger btn-sm">Delete</a>
                             </td>
