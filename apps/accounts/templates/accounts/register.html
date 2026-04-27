@@ -1,20 +1,21 @@
 {% extends "base.html" %}
 
-{% block title %}Register{% endblock %}
+{% block title %}Create account · Pynance{% endblock %}
+{% block body_page %}auth-register{% endblock %}
 
 {% block body %}
-<div class="auth-page">
+<div class="auth-wrap">
     <div class="auth-card">
-        <div class="auth-logo">
-            <div class="auth-logo-icon">P</div>
+        <div class="auth-brand">
+            <div class="logo-icon">P</div>
             <span>Pynance</span>
         </div>
 
-        <h1 class="auth-title">Create account</h1>
-        <p class="auth-subtitle">Start tracking your income, expenses, and goals.</p>
+        <h1 class="auth-title">Create your account</h1>
+        <p class="auth-subtitle">Track your money in minutes</p>
 
         {% if form.non_field_errors %}
-            <div class="auth-message">
+            <div class="auth-alert">
                 {% for error in form.non_field_errors %}
                     <div>{{ error }}</div>
                 {% endfor %}
@@ -25,50 +26,38 @@
             {% csrf_token %}
 
             <div class="form-group">
-                <label for="{{ form.username.id_for_label }}">Username</label>
+                <label for="id_username">Username</label>
                 {{ form.username }}
-                {% for error in form.username.errors %}
-                    <div style="margin-top: 6px; color: var(--color-danger); font-size: 12px;">{{ error }}</div>
-                {% endfor %}
+                {% for error in form.username.errors %}<div class="field-error">{{ error }}</div>{% endfor %}
             </div>
 
             <div class="form-group">
-                <label for="{{ form.email.id_for_label }}">Email</label>
+                <label for="id_email">Email</label>
                 {{ form.email }}
-                {% for error in form.email.errors %}
-                    <div style="margin-top: 6px; color: var(--color-danger); font-size: 12px;">{{ error }}</div>
-                {% endfor %}
+                {% for error in form.email.errors %}<div class="field-error">{{ error }}</div>{% endfor %}
             </div>
 
             <div class="form-group">
-                <label for="{{ form.password1.id_for_label }}">Password</label>
+                <label for="password1">Password</label>
                 {{ form.password1 }}
-                {% for error in form.password1.errors %}
-                    <div style="margin-top: 6px; color: var(--color-danger); font-size: 12px;">{{ error }}</div>
-                {% endfor %}
+                {% for error in form.password1.errors %}<div class="field-error">{{ error }}</div>{% endfor %}
             </div>
 
             <div class="form-group">
-                <label for="{{ form.password2.id_for_label }}">Confirm Password</label>
+                <label for="password2">Confirm password</label>
                 {{ form.password2 }}
-                {% for error in form.password2.errors %}
-                    <div style="margin-top: 6px; color: var(--color-danger); font-size: 12px;">{{ error }}</div>
-                {% endfor %}
+                {% for error in form.password2.errors %}<div class="field-error">{{ error }}</div>{% endfor %}
             </div>
 
-            <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 18px;">
-                <input type="checkbox" id="showPassword" onclick="togglePasswords()" style="width: auto;">
-                <label for="showPassword" style="margin: 0; font-size: 13px; color: var(--color-text-muted);">
-                    Show passwords
-                </label>
-            </div>
+            <label class="show-pass">
+                <input type="checkbox" id="showPasswords"> Show passwords
+            </label>
 
-            <button type="submit" class="btn btn-primary" style="width: 100%;">Register</button>
+            <button type="submit" class="btn btn-primary">Create account</button>
         </form>
 
         <div class="auth-footer">
-            Already have an account?
-            <a href="{% url 'accounts:login' %}">Login</a>
+            Already have an account? <a href="{% url 'accounts:login' %}">Log in</a>
         </div>
     </div>
 </div>
@@ -76,15 +65,12 @@
 
 {% block extra_js %}
 <script>
-    function togglePasswords() {
-        const pass1 = document.getElementById("password1");
-        const pass2 = document.getElementById("password2");
-
-        if (pass1 && pass2) {
-            const newType = pass1.type === "password" ? "text" : "password";
-            pass1.type = newType;
-            pass2.type = newType;
-        }
-    }
+    document.getElementById('showPasswords').addEventListener('change', (e) => {
+        const t = e.target.checked ? 'text' : 'password';
+        const p1 = document.getElementById('password1');
+        const p2 = document.getElementById('password2');
+        if (p1) p1.type = t;
+        if (p2) p2.type = t;
+    });
 </script>
 {% endblock %}
