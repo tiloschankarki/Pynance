@@ -1,0 +1,46 @@
+{% extends "base_app.html" %}
+
+{% block title %}Cash Flow Trends{% endblock %}
+{% block body_page %}visualize{% endblock %}
+{% block header %}Cash Flow Trends{% endblock %}
+{% block nav_transactions %}active{% endblock %}
+
+{% block content %}
+
+<div class="visualize-header">
+    <div>
+        <h2>Visualize Transactions</h2>
+        <p>Explore income, expenses, and net cash flow over time.</p>
+    </div>
+
+    <a href="{% url 'transactions:page' %}" class="btn btn-outline">
+        Back to Transactions
+    </a>
+</div>
+
+<div class="visualize-grid">
+    <div class="card chart-card large-chart">
+        <div class="card-header">
+            <span class="card-title">Income vs Expenses</span>
+        </div>
+        <div class="card-body">
+            <canvas id="cashFlowChart"></canvas>
+        </div>
+    </div>
+
+    <div class="card chart-card large-chart">
+        <div class="card-header">
+            <span class="card-title">Net Cash Flow</span>
+        </div>
+        <div class="card-body">
+            <canvas id="netCashFlowChart"></canvas>
+        </div>
+    </div>
+</div>
+
+{{ labels|json_script:"chart-labels" }}
+{{ income_data|json_script:"chart-income" }}
+{{ expense_data|json_script:"chart-expenses" }}
+{{ net_data|json_script:"chart-net" }}
+
+{% endblock %}

@@ -12,6 +12,8 @@
 <body data-page="{% block body_page %}{% endblock %}">
     {% block body %}{% endblock %}
 
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="{% static 'js/charts.js' %}"></script>
     <script src="{% static 'js/main.js' %}"></script>
     {% block extra_js %}{% endblock %}
 </body>

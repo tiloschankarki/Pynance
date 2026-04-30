@@ -28,7 +28,9 @@
                 <option value="fixed expense">Fixed Expense</option>
                 <option value="variable expense">Variable Expense</option>
             </select>
-
+            <a href="{% url 'transactions:visualize' %}" class="btn btn-primary">
+                View Cash Flow Trends
+              </a>
             <div class="toolbar-spacer"></div>
 
             <a class="btn btn-outline btn-sm" href="{% url 'transactions:add' %}">

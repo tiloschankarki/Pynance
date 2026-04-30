@@ -6,6 +6,7 @@
 document.addEventListener('DOMContentLoaded', () => {
   const page = document.body.dataset.page;
   if (page === 'dashboard') initDashboard();
+  if (page === 'visualize') initVisualize();
 });
 
 function readJSON(id, fallback) {
@@ -105,3 +106,74 @@ function initDashboard() {
     });
   }
 }
+/* ============================================
+   VISUALIZE PAGE
+   ============================================ */
+   function initVisualize() {
+    const labels = readJSON('chart-labels', []);
+    const income = readJSON('chart-income', []);
+    const expenses = readJSON('chart-expenses', []);
+    const net = readJSON('chart-net', []);
+  
+    const cashflowCtx = document.getElementById('cashFlowChart');
+    if (cashflowCtx && typeof Chart !== 'undefined') {
+      new Chart(cashflowCtx, {
+        type: 'line',
+        data: {
+          labels: labels,
+          datasets: [
+            {
+              label: 'Income',
+              data: income,
+              borderColor: '#3dbcb8',
+              backgroundColor: 'rgba(61, 188, 184, 0.12)',
+              tension: 0.35,
+              fill: true,
+            },
+            {
+              label: 'Expenses',
+              data: expenses,
+              borderColor: '#e05c5c',
+              backgroundColor: 'rgba(224, 92, 92, 0.12)',
+              tension: 0.35,
+              fill: true,
+            },
+          ],
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: { position: 'bottom' },
+          },
+        },
+      });
+    }
+  
+    const netCtx = document.getElementById('netCashFlowChart');
+    if (netCtx && typeof Chart !== 'undefined') {
+      new Chart(netCtx, {
+        type: 'line',
+        data: {
+          labels: labels,
+          datasets: [
+            {
+              label: 'Net Cash Flow',
+              data: net,
+              borderColor: '#5b7cfa',
+              backgroundColor: 'rgba(91, 124, 250, 0.12)',
+              tension: 0.35,
+              fill: true,
+            },
+          ],
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: { position: 'bottom' },
+          },
+        },
+      });
+    }
+  }

@@ -1255,3 +1255,44 @@ input, select, textarea { font: inherit; }
   display: flex;
   gap: 8px;
 }
+
+/* ---------- Visualize Page ---------- */
+.visualize-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.visualize-header h2 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.visualize-header p {
+  margin-top: 6px;
+  color: var(--color-text-muted);
+}
+
+.visualize-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+}
+
+.chart-card {
+  background: var(--color-card);
+  border-radius: var(--radius-lg);
+  padding: 20px;
+  box-shadow: var(--shadow-card);
+}
+
+.large-chart {
+  height: 420px;
+}
+
+.large-chart canvas {
+  width: 100% !important;
+  height: 340px !important;
+}
