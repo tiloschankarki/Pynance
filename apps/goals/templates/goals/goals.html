@@ -1,39 +1,58 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Goals</title>
-</head>
-<body>
-    <h1>Your Goals</h1>
+{% extends "base_app.html" %}
 
-    <a href="{% url 'goals:add' %}">Add Goal</a>
+{% block title %}Goals · Pynance{% endblock %}
+{% block body_page %}goals{% endblock %}
+{% block header %}Goals{% endblock %}
+{% block nav_goals %}active{% endblock %}
 
-    <hr>
+{% block content %}
+<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;">
+    <p style="font-size:14px;color:var(--color-text-muted);">Track your savings goals and monitor your progress.</p>
+    <a href="{% url 'goals:add' %}" class="btn btn-primary">Add Goal</a>
+</div>
 
-    {% if goals %}
+{% if goals %}
+    <div class="goals-grid">
         {% for goal in goals %}
-            <div style="border: 1px solid #ccc; padding: 16px; margin-bottom: 16px;">
-                <h2>{{ goal.title }}</h2>
-                <p><strong>Target:</strong> {{ goal.target_amount }}</p>
-                <p><strong>Saved:</strong> {{ goal.saved_amount }}</p>
-                <p><strong>Progress:</strong> {{ goal.progress_percentage|floatformat:1 }}%</p>
-                <p><strong>Note:</strong> {{ goal.note|default:"No note added." }}</p>
-
-                <div style="background: #eee; width: 100%; height: 20px; margin: 10px 0;">
-                    <div
-                    style="background: #4caf50; height: 20px;"
-                    data-width="{{ goal.progress_percentage }}">
-                </div>
+            <div class="card goal-card">
+                <div class="card-header">
+                    <span class="card-title">{{ goal.title }}</span>
+                    <span class="goal-percent">{{ goal.progress_percentage|floatformat:0 }}%</span>
                 </div>
 
-                <a href="{% url 'goals:edit' goal.pk %}">Edit</a>
-                <a href="{% url 'goals:delete' goal.pk %}">Delete</a>
+                <div class="card-body">
+                    <div class="goal-amounts">
+                        <span class="goal-saved">${{ goal.saved_amount|floatformat:2 }}</span>
+                        <span class="goal-target">of ${{ goal.target_amount|floatformat:2 }}</span>
+                    </div>
+
+                    <div class="progress-track">
+                        <div class="progress-fill" style="width: {{ goal.progress_percentage|floatformat:0 }}%;"></div>
+                    </div>
+
+                    {% if goal.note %}
+                        <p class="goal-note">{{ goal.note }}</p>
+                    {% endif %}
+
+                    <div class="goal-actions">
+                        <a href="{% url 'goals:edit' goal.pk %}" class="btn btn-outline btn-sm">Edit</a>
+                        <a href="{% url 'goals:delete' goal.pk %}" class="btn btn-danger btn-sm">Delete</a>
+                    </div>
+                </div>
             </div>
         {% endfor %}
-    {% else %}
-        <p>No goals added yet.</p>
-    {% endif %}
-</body>
-</html>
+    </div>
+{% else %}
+    <div class="card">
+        <div class="card-body">
+            <div class="empty-state">
+                <h3>No goals yet</h3>
+                <p>Create your first savings goal to start tracking progress.</p>
+                <div style="margin-top:16px;">
+                    <a href="{% url 'goals:add' %}" class="btn btn-primary">Add Your First Goal</a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endif %}
+{% endblock %}

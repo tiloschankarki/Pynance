@@ -1,7 +1,10 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib import messages
-from .forms import RegisterForm
+
+from .forms import RegisterForm, UsernameUpdateForm
 
 
 def login_view(request):
@@ -39,7 +42,39 @@ def register_view(request):
 
     return render(request, "accounts/register.html", {"form": form})
 
+
 def logout_view(request):
     logout(request)
     return redirect("accounts:login")
 
+
+@login_required
+def settings_view(request):
+    user_form = UsernameUpdateForm(instance=request.user)
+    password_form = PasswordChangeForm(user=request.user)
+
+    if request.method == "POST":
+        if "update_username" in request.POST:
+            user_form = UsernameUpdateForm(request.POST, instance=request.user)
+            password_form = PasswordChangeForm(user=request.user)
+
+            if user_form.is_valid():
+                user_form.save()
+                messages.success(request, "Username updated successfully.")
+                return redirect("accounts:settings")
+
+        elif "update_password" in request.POST:
+            user_form = UsernameUpdateForm(instance=request.user)
+            password_form = PasswordChangeForm(user=request.user, data=request.POST)
+
+            if password_form.is_valid():
+                user = password_form.save()
+                update_session_auth_hash(request, user)
+                messages.success(request, "Password updated successfully.")
+                return redirect("accounts:settings")
+
+    context = {
+        "user_form": user_form,
+        "password_form": password_form,
+    }
+    return render(request, "accounts/settings.html", context)

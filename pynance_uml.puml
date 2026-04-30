@@ -1,0 +1,64 @@
+@startuml
+title Pynance - UML Class Diagram
+
+class User {
+  +id: int
+  +username: string
+  +email: string
+  +password: string
+  +is_active: boolean
+  +date_joined: datetime
+}
+
+class Transaction {
+  +id: int
+  +amount: decimal
+  +type: string
+  +category: string
+  +date: date
+  +description: string
+  +created_at: datetime
+  +updated_at: datetime
+
+  +__str__(): string
+}
+
+class Goal {
+  +id: int
+  +title: string
+  +target_amount: decimal
+  +saved_amount: decimal
+  +note: text
+  +created_at: datetime
+
+  +__str__(): string
+  +progress_percentage(): decimal
+}
+
+class Dashboard {
+  +total_income: decimal
+  +total_expenses: decimal
+  +balance: decimal
+  +month_income: decimal
+  +month_expenses: decimal
+  +month_balance: decimal
+  +chart_labels: list
+  +income_data: list
+  +expense_data: list
+}
+
+User "1" --> "many" Transaction : owns
+User "1" --> "many" Goal : owns
+
+Dashboard ..> Transaction : reads and aggregates
+
+Transaction : TYPE_CHOICES
+Transaction : income
+Transaction : expense
+
+Transaction : CATEGORY_CHOICES
+Transaction : income
+Transaction : fixed
+Transaction : variable
+
+@enduml

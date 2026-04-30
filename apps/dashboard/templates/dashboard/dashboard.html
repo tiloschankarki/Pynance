@@ -1,106 +1,114 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pynance Dashboard</title>
-</head>
-<body>
-    <header>
-        <h1>Welcome to your Dashboard</h1>
-        <p>Hello, {{ request.user.username }}. Here is your financial overview.</p>
-    </header>
+{% extends "base_app.html" %}
+{% load static %}
 
-    <hr>
+{% block title %}Dashboard · Pynance{% endblock %}
+{% block body_page %}dashboard{% endblock %}
+{% block header %}Dashboard{% endblock %}
+{% block nav_dashboard %}active{% endblock %}
 
-    <section>
-        <h2>Cash Flow Summary</h2>
+{% block extra_css %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script>
+{% endblock %}
 
-        <div>
-            <h3>Total Income</h3>
-            <p>{{ total_income }}</p>
+{% block content %}
+<div style="margin-bottom: 20px;">
+    <p style="font-size: 14px; color: var(--color-text-muted);">
+        Hello, {{ request.user.username }}. Here's your financial overview.
+    </p>
+</div>
+
+<!-- KPI Cards -->
+<div class="kpi-grid">
+    <div class="kpi-card kpi-teal">
+        <div class="kpi-label">Balance</div>
+        <div class="kpi-value">${{ balance|floatformat:2 }}</div>
+    </div>
+    <div class="kpi-card kpi-blue">
+        <div class="kpi-label">Income This Month</div>
+        <div class="kpi-value">${{ month_income|floatformat:2 }}</div>
+    </div>
+    <div class="kpi-card kpi-coral">
+        <div class="kpi-label">Expenses This Month</div>
+        <div class="kpi-value">${{ month_expenses|floatformat:2 }}</div>
+    </div>
+    <div class="kpi-card kpi-red">
+        <div class="kpi-label">Net This Month</div>
+        <div class="kpi-value">${{ month_balance|floatformat:2 }}</div>
+    </div>
+</div>
+
+<!-- Middle Row -->
+<div class="dashboard-mid">
+
+    <!-- Cash-flow Bar Chart -->
+    <div class="card">
+        <div class="card-header">
+            <span class="card-title">Monthly Cash Flow</span>
+            <div class="chart-legend">
+                <span><span class="legend-dot" style="background:#3dbcb8;"></span>Income</span>
+                <span><span class="legend-dot" style="background:#e05c5c;"></span>Expenses</span>
+            </div>
         </div>
-
-        <div>
-            <h3>Total Expenses</h3>
-            <p>{{ total_expenses }}</p>
+        <div class="card-body" style="height:230px;">
+            <canvas id="cashflowChart"></canvas>
         </div>
+    </div>
 
-        <div>
-            <h3>Current Balance</h3>
-            <p>{{ balance }}</p>
+    <!-- Income vs Expense Donut -->
+    <div class="card">
+        <div class="card-header">
+            <span class="card-title">Income vs Expenses</span>
         </div>
-    </section>
-
-    <hr>
-
-    <section>
-        <h2>This Month</h2>
-
-        <div>
-            <h3>Income This Month</h3>
-            <p>{{ month_income }}</p>
+        <div class="card-body" style="position:relative;">
+            <div class="donut-wrapper" style="height:160px;">
+                <canvas id="mixChart"></canvas>
+                <div class="donut-center-label">
+                    <div class="donut-center-value">${{ total_income|floatformat:0 }}</div>
+                    <div class="donut-center-text">Total Income</div>
+                </div>
+            </div>
+            <div style="margin-top:12px;font-size:12px;display:flex;flex-direction:column;gap:4px;">
+                <div style="display:flex;align-items:center;gap:6px;"><span class="legend-dot" style="background:#3dbcb8;"></span> Income ${{ total_income|floatformat:2 }}</div>
+                <div style="display:flex;align-items:center;gap:6px;"><span class="legend-dot" style="background:#e05c5c;"></span> Expenses ${{ total_expenses|floatformat:2 }}</div>
+            </div>
         </div>
+    </div>
 
-        <div>
-            <h3>Expenses This Month</h3>
-            <p>{{ month_expenses }}</p>
+    <!-- Recent Transactions -->
+    <div class="card">
+        <div class="card-header">
+            <span class="card-title">Recent Transactions</span>
         </div>
-
-        <div>
-            <h3>Net This Month</h3>
-            <p>{{ month_balance }}</p>
-        </div>
-    </section>
-
-    <hr>
-
-    <section>
-        <h2>Quick Actions</h2>
-        <a href="{% url 'transactions:add' %}">Add Transaction</a>
-        <a href="{% url 'transactions:page' %}">View All Transactions</a>
-    </section>
-
-    <hr>
-
-    <section>
-        <h2>Recent Transactions</h2>
-
-        {% if recent_transactions %}
-            <table border="1" cellpadding="8">
-                <thead>
-                    <tr>
-                        <th>Date</th>
-                        <th>Type</th>
-                        <th>Category</th>
-                        <th>Amount</th>
-                        <th>Description</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for transaction in recent_transactions %}
-                        <tr>
-                            <td>{{ transaction.date }}</td>
-                            <td>{{ transaction.type }}</td>
-                            <td>{{ transaction.category }}</td>
-                            <td>{{ transaction.amount }}</td>
-                            <td>{{ transaction.description }}</td>
-                        </tr>
+        <div class="card-body" style="padding:8px 16px;">
+            {% if recent_transactions %}
+                <div class="txn-list">
+                    {% for t in recent_transactions %}
+                        <div class="txn-item">
+                            <span class="txn-name">{{ t.description|default:t.category|default:"—" }}</span>
+                            <span class="badge badge-{{ t.category }}">{{ t.category|upper }}</span>
+                            <span class="txn-amount {% if t.type == 'income' %}positive{% else %}negative{% endif %}">{% if t.type == 'income' %}+{% else %}-{% endif %}${{ t.amount|floatformat:2 }}</span>
+                        </div>
                     {% endfor %}
-                </tbody>
-            </table>
-        {% else %}
-            <p>No transactions found yet.</p>
-        {% endif %}
-    </section>
+                </div>
+            {% else %}
+                <div class="empty-state">
+                    <p>No transactions yet.</p>
+                </div>
+            {% endif %}
+            <div style="margin-top:12px;">
+                <a href="{% url 'transactions:page' %}" class="btn btn-primary" style="width:100%;justify-content:center;">View all transactions</a>
+            </div>
+        </div>
+    </div>
 
-    <hr>
+</div>
 
-    <section>
-        <h2>Charts</h2>
-        <p>Chart labels: {{ chart_labels }}</p>
-        <p>Income data: {{ income_data }}</p>
-        <p>Expense data: {{ expense_data }}</p>
-    </section>
-</body>
-</html>
+{{ chart_labels|json_script:"chart-labels" }}
+{{ income_data|json_script:"chart-income" }}
+{{ expense_data|json_script:"chart-expenses" }}
+
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/charts.js' %}"></script>
+{% endblock %}

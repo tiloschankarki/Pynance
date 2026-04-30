@@ -1,20 +1,26 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Delete Goal</title>
-</head>
-<body>
-    <h1>Delete Goal</h1>
+{% extends "base_app.html" %}
 
-    <p>Are you sure you want to delete "{{ goal.title }}"?</p>
+{% block title %}Delete Goal{% endblock %}
+{% block body_page %}goals{% endblock %}
+{% block header %}Delete Goal{% endblock %}
+{% block nav_goals %}active{% endblock %}
 
-    <form method="post">
-        {% csrf_token %}
-        <button type="submit">Yes, Delete</button>
-    </form>
+{% block content %}
+    <div class="card" style="max-width: 640px;">
+        <div class="card-header">
+            <span class="card-title">Delete Goal</span>
+        </div>
 
-    <a href="{% url 'goals:page' %}">Cancel</a>
-</body>
-</html>
+        <div class="card-body">
+            <p style="margin-bottom: 20px;">
+                Are you sure you want to delete <strong>"{{ goal.title }}"</strong>?
+            </p>
+
+            <form method="post" style="display: flex; gap: 10px;">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-danger">Yes, Delete</button>
+                <a href="{% url 'goals:page' %}" class="btn btn-outline">Cancel</a>
+            </form>
+        </div>
+    </div>
+{% endblock %}
