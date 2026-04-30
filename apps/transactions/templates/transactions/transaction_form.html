@@ -6,7 +6,11 @@
 {% block nav_transactions %}active{% endblock %}
 
 {% block content %}
-    <div class="card" style="max-width: 720px;">
+
+<div style="display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 20px; align-items: start;">
+
+    <!-- Manual Transaction Form -->
+    <div class="card">
         <div class="card-header">
             <span class="card-title">{{ page_title }}</span>
         </div>
@@ -35,4 +39,44 @@
             </form>
         </div>
     </div>
+
+    {% if page_title == "Add Transaction" %}
+    <!-- CSV Upload Card -->
+    <div class="card">
+        <div class="card-header">
+            <span class="card-title">Import Transaction Sheet</span>
+        </div>
+
+        <div class="card-body">
+            <p style="color: var(--color-text-muted); margin-bottom: 14px;">
+                Upload a CSV file exported from Excel or Google Sheets.
+            </p>
+
+            <p style="color: var(--color-text-muted); font-size: 13px; margin-bottom: 16px;">
+                Required columns:
+                <strong>date, amount, type, category, description</strong>
+            </p>
+
+            <form method="post" enctype="multipart/form-data" action="{% url 'transactions:upload_csv' %}">
+                {% csrf_token %}
+
+                <div class="form-group">
+                    <label for="csv_file">CSV File</label>
+                    <input type="file" name="csv_file" id="csv_file" accept=".csv" required>
+                </div>
+
+                <button type="submit" class="btn btn-primary">
+                    Import Transactions
+                </button>
+            </form>
+
+            <p style="color: var(--color-text-muted); font-size: 12px; margin-top: 14px;">
+                If your data is in Excel, use File → Save As → CSV before uploading.
+            </p>
+        </div>
+    </div>
+    {% endif %}
+
+</div>
+
 {% endblock %}
