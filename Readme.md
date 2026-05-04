@@ -84,6 +84,92 @@ Pynance enables users to:
 - Development Tools: Git, Visual Studio Code  
 
 ---
+## Installation and Setup  
+
+### Installing the Project  
+
+- Fork this repository  
+- Clone your forked repository  
+
+```bash
+git clone <your-repo-url>
+cd pynance
+```
+
+---
+
+### Environment Setup  
+
+- Create a virtual environment  
+
+```bash
+python -m venv venv
+```
+
+- Activate the virtual environment  
+
+macOS/Linux:
+
+```bash
+source venv/bin/activate
+```
+
+Windows:
+
+```bash
+venv\Scripts\activate
+```
+
+---
+
+### Installing Dependencies  
+
+```bash
+pip install -r requirements.txt
+```
+
+---
+
+### Database Setup  
+
+```bash
+python manage.py migrate
+```
+
+---
+
+### Running the Application  
+
+```bash
+python manage.py runserver
+```
+
+Access the application at:
+
+```text
+http://127.0.0.1:8000/
+```
+
+---
+
+## Running Tests  
+
+Run all test cases:
+
+```bash
+python manage.py test
+```
+
+Run tests for specific apps:
+
+```bash
+python manage.py test apps.accounts
+python manage.py test apps.dashboard
+python manage.py test apps.transactions
+python manage.py test apps.goals
+```
+
+---
 
 ## Challenges  
 
