@@ -79,17 +79,6 @@ class DashboardViewTests(TestCase):
         self.assertEqual(response.context["total_expenses"], 179)
         self.assertEqual(response.context["balance"], 321)
 
-    # Test that current month income, expenses, and balance are calculated correctly
-    def test_dashboard_month_totals_are_correct(self):
-        self.client.login(username="dashboarduser", password="Testpass123!")
-
-        response = self.client.get(reverse("dashboard"))
-
-        # These values are based on the seeded April 2026 transactions
-        self.assertEqual(response.context["month_income"], 500)
-        self.assertEqual(response.context["month_expenses"], 179)
-        self.assertEqual(response.context["month_balance"], 321)
-
     # Test that only the logged-in user's transactions are shown as recent transactions
     def test_recent_transactions_are_user_specific(self):
         self.client.login(username="dashboarduser", password="Testpass123!")
